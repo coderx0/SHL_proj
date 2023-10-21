@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+// model Project {
+//   id             String @id @default(cuid())
+//   title          String
+//   technologies   String
+//   frontendSkills String
+//   backendSkills  String
+//   databases      String
+//   infrastructure String
+//   availability   String
+// }
+
+model Project {
+  id            String @id @default(cuid())
+  project_Title String @unique
+
+  frontend_Tech          FrontendTech[]
+  backend_Tech           BackendTech[]
+  project_tech           ProjectTech[]
+  project_database       ProjectDatabase[]
+  project_infrastructure ProjectInfrastructure[]
+
+  otherInfo String
+}
+
+model FrontendTech {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  project Project[]
+}
+
+model BackendTech {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  project Project[]
+}
+
+model ProjectTech {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  project Project[]
+}
+
+model ProjectDatabase {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  project Project[]
+}
+
+model ProjectInfrastructure {
+  id      String    @id @default(cuid())
+  name    String    @unique
+  project Project[]
+}
